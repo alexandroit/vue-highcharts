@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+*.log
+.vite/
+coverage/
+docs-src/vue-2/node_modules/
+docs-src/vue-2/package-lock.json
+docs-src/vue-3/node_modules/
+docs-src/vue-3/package-lock.json
+docs-src/vue-2/dist/
+docs-src/vue-3/dist/
