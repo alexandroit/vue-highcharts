@@ -62,14 +62,46 @@
       </div>
     </section>
 
+    <section class="section-nav" aria-label="Documentation sections">
+      <div class="section-nav-copy">
+        <strong>Open one demo section at a time</strong>
+        <p>Only the active section mounts charts, and optional Highcharts modules load on demand.</p>
+      </div>
+      <div class="section-chip-row">
+        <button
+          v-for="panel in panels"
+          :key="panel.id"
+          class="secondary section-chip"
+          :class="{ 'is-active': panelIsActive(panel.id) }"
+          type="button"
+          @click="openPanel(panel.id)"
+        >
+          {{ panel.label }}
+        </button>
+      </div>
+    </section>
+
     <section class="layout" id="demos">
       <div class="panels">
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Core — basic usage</h2>
-            <p>These two demos cover most day-to-day usage in Vue applications.</p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('core') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Core</span>
+              <h2>Core — basic usage</h2>
+              <p>These two demos cover most day-to-day usage in Vue applications.</p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-core"
+              :aria-expanded="panelIsActive('core') ? 'true' : 'false'"
+              @click="togglePanel('core')"
+            >
+              {{ panelButtonLabel('core') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div v-if="panelIsActive('core')" id="panel-core" class="panel-body">
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card">
               <h3>Basic chart</h3>
               <p>Pass a standard Highcharts options object to the wrapper.</p>
@@ -95,17 +127,34 @@
               </div>
             </section>
           </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
+          </div>
         </article>
 
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Option callbacks</h2>
-            <p>
-              Vue apps keep Highcharts events in the options object. Selection, point selection,
-              series hover, and axis extremes can all feed component state directly.
-            </p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('callbacks') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Events</span>
+              <h2>Option callbacks</h2>
+              <p>
+                Vue apps keep Highcharts events in the options object. Selection, point selection,
+                series hover, and axis extremes can all feed component state directly.
+              </p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-callbacks"
+              :aria-expanded="panelIsActive('callbacks') ? 'true' : 'false'"
+              @click="togglePanel('callbacks')"
+            >
+              {{ panelButtonLabel('callbacks') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div v-if="panelIsActive('callbacks')" id="panel-callbacks" class="panel-body">
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card full">
               <h3>Chart, series and point events</h3>
               <p>Drag to zoom, hover the series, click a point, and watch the Event Log update.</p>
@@ -129,17 +178,34 @@
               </div>
             </section>
           </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
+          </div>
         </article>
 
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Native instance access</h2>
-            <p>
-              The wrapper stays intentionally thin. For imperative mutations, capture the native
-              chart object from a Vue ref and call the Highcharts API directly.
-            </p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('imperative') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Refs</span>
+              <h2>Native instance access</h2>
+              <p>
+                The wrapper stays intentionally thin. For imperative mutations, capture the native
+                chart object from a Vue ref and call the Highcharts API directly.
+              </p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-imperative"
+              :aria-expanded="panelIsActive('imperative') ? 'true' : 'false'"
+              @click="togglePanel('imperative')"
+            >
+              {{ panelButtonLabel('imperative') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div v-if="panelIsActive('imperative')" id="panel-imperative" class="panel-body">
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card full">
               <h3>Imperative mutations via the Highcharts API</h3>
               <p>Use the chart ref to add points, replace series data, or rename the chart.</p>
@@ -160,17 +226,34 @@
               </div>
             </section>
           </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
+          </div>
         </article>
 
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Advanced axes and modules</h2>
-            <p>
-              The wrapper does not hide native axis features. <code>zAxis</code>, <code>colorAxis</code>,
-              and 3D options stay right inside your Highcharts configuration.
-            </p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('axes') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Modules</span>
+              <h2>Advanced axes and modules</h2>
+              <p>
+                The wrapper does not hide native axis features. <code>zAxis</code>, <code>colorAxis</code>,
+                and 3D options stay right inside your Highcharts configuration.
+              </p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-axes"
+              :aria-expanded="panelIsActive('axes') ? 'true' : 'false'"
+              @click="togglePanel('axes')"
+            >
+              {{ panelButtonLabel('axes') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div v-if="panelIsActive('axes')" id="panel-axes" class="panel-body">
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card">
               <h3>zAxis in 3D scatter</h3>
               <p>Clamp and reset the zAxis through the native chart instance.</p>
@@ -233,17 +316,34 @@
               <p v-if="moduleError" class="module-error">{{ moduleError }}</p>
             </section>
           </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
+          </div>
         </article>
 
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Highcharts 6 — retained chart types</h2>
-            <p>
-              The Vue wrapper can still demonstrate the Highcharts 6 additions such as bullet
-              and x-range charts without changing the wrapper API.
-            </p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('highcharts-6') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Highcharts 6</span>
+              <h2>Highcharts 6 — retained chart types</h2>
+              <p>
+                The Vue wrapper can still demonstrate the Highcharts 6 additions such as bullet
+                and x-range charts without changing the wrapper API.
+              </p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-highcharts-6"
+              :aria-expanded="panelIsActive('highcharts-6') ? 'true' : 'false'"
+              @click="togglePanel('highcharts-6')"
+            >
+              {{ panelButtonLabel('highcharts-6') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div v-if="panelIsActive('highcharts-6')" id="panel-highcharts-6" class="panel-body">
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card">
               <h3>Bullet chart</h3>
               <p>Compare an actual value to a target with qualitative bands.</p>
@@ -276,17 +376,34 @@
               </div>
             </section>
           </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
+          </div>
         </article>
 
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Highcharts 7 — storytelling and relationship charts</h2>
-            <p>
-              Timeline, venn, organization and dependency wheel charts all work with the same
-              <code>&lt;highcharts&gt;</code> component once their modules are initialized.
-            </p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('highcharts-7') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Highcharts 7</span>
+              <h2>Highcharts 7 — storytelling and relationship charts</h2>
+              <p>
+                Timeline, venn, organization and dependency wheel charts all work with the same
+                <code>&lt;highcharts&gt;</code> component once their modules are initialized.
+              </p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-highcharts-7"
+              :aria-expanded="panelIsActive('highcharts-7') ? 'true' : 'false'"
+              @click="togglePanel('highcharts-7')"
+            >
+              {{ panelButtonLabel('highcharts-7') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div v-if="panelIsActive('highcharts-7')" id="panel-highcharts-7" class="panel-body">
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card">
               <h3>Timeline chart</h3>
               <p>Chronological milestones on a single track.</p>
@@ -327,17 +444,34 @@
               </div>
             </section>
           </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
+          </div>
         </article>
 
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Highcharts 8 — interaction-heavy visuals</h2>
-            <p>
-              Vue keeps the Highcharts 8 capabilities available, including radial bar layouts,
-              data sorting, and marker clusters.
-            </p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('highcharts-8') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Highcharts 8</span>
+              <h2>Highcharts 8 — interaction-heavy visuals</h2>
+              <p>
+                Vue keeps the Highcharts 8 capabilities available, including radial bar layouts,
+                data sorting, and marker clusters.
+              </p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-highcharts-8"
+              :aria-expanded="panelIsActive('highcharts-8') ? 'true' : 'false'"
+              @click="togglePanel('highcharts-8')"
+            >
+              {{ panelButtonLabel('highcharts-8') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div v-if="panelIsActive('highcharts-8')" id="panel-highcharts-8" class="panel-body">
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card">
               <h3>Radial bar chart</h3>
               <p>A circular bar layout for KPI comparisons.</p>
@@ -366,17 +500,34 @@
               </div>
             </section>
           </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
+          </div>
         </article>
 
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Highcharts 9 — retained capabilities</h2>
-            <p>
-              Highcharts 9 added 3D area charts, single-touch zoom, HLC stock series,
-              organization node offsets, and annotation crop controls.
-            </p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('highcharts-9') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Highcharts 9</span>
+              <h2>Highcharts 9 — retained capabilities</h2>
+              <p>
+                Highcharts 9 added 3D area charts, single-touch zoom, HLC stock series,
+                organization node offsets, and annotation crop controls.
+              </p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-highcharts-9"
+              :aria-expanded="panelIsActive('highcharts-9') ? 'true' : 'false'"
+              @click="togglePanel('highcharts-9')"
+            >
+              {{ panelButtonLabel('highcharts-9') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div v-if="panelIsActive('highcharts-9')" id="panel-highcharts-9" class="panel-body">
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card">
               <h3>3D area chart</h3>
               <p>Area series inside a 3D chart.</p>
@@ -425,17 +576,38 @@
               </div>
             </section>
           </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
+          </div>
         </article>
 
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Highcharts 10 and 11 — retained capabilities</h2>
-            <p>
-              Drilldown breadcrumbs, aligned thresholds, organization layout tuning, arc diagrams,
-              treegraph series, and minor ticks per major remain available in the same wrapper.
-            </p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('highcharts-10-11') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Highcharts 10/11</span>
+              <h2>Highcharts 10 and 11 — retained capabilities</h2>
+              <p>
+                Drilldown breadcrumbs, aligned thresholds, organization layout tuning, arc diagrams,
+                treegraph series, and minor ticks per major remain available in the same wrapper.
+              </p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-highcharts-10-11"
+              :aria-expanded="panelIsActive('highcharts-10-11') ? 'true' : 'false'"
+              @click="togglePanel('highcharts-10-11')"
+            >
+              {{ panelButtonLabel('highcharts-10-11') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div
+            v-if="panelIsActive('highcharts-10-11')"
+            id="panel-highcharts-10-11"
+            class="panel-body"
+          >
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card">
               <h3>Drilldown breadcrumbs</h3>
               <p>Keep breadcrumb navigation visible while drilling into data.</p>
@@ -494,18 +666,35 @@
               </div>
             </section>
           </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
+          </div>
         </article>
 
-        <article class="panel">
-          <div class="panel-header">
-            <h2>Highcharts 12 — maintained latest line</h2>
-            <p>
-              The Vue wrapper keeps Highcharts 12.5 as the latest maintained line,
-              so point-and-figure, renko, locale-aware formatting, and human-friendly dates
-              stay part of the live documentation set.
-            </p>
+        <article class="panel" :class="{ collapsed: !panelIsActive('highcharts-12') }">
+          <div class="panel-header panel-header-collapsible">
+            <div>
+              <span class="panel-kicker">Highcharts 12</span>
+              <h2>Highcharts 12 — maintained latest line</h2>
+              <p>
+                The Vue wrapper keeps Highcharts 12.5 as the latest maintained line,
+                so point-and-figure, renko, locale-aware formatting, and human-friendly dates
+                stay part of the live documentation set.
+              </p>
+            </div>
+            <button
+              class="secondary panel-toggle"
+              type="button"
+              aria-controls="panel-highcharts-12"
+              :aria-expanded="panelIsActive('highcharts-12') ? 'true' : 'false'"
+              @click="togglePanel('highcharts-12')"
+            >
+              {{ panelButtonLabel('highcharts-12') }}
+            </button>
           </div>
-          <div class="demo-grid">
+          <div v-if="panelIsActive('highcharts-12')" id="panel-highcharts-12" class="panel-body">
+            <div v-if="Highcharts" class="demo-grid">
             <section class="demo-card">
               <h3>Point and figure</h3>
               <p>Trend-focused stock columns without time-based bars.</p>
@@ -555,6 +744,10 @@
                 <highcharts class="chart-host" :highcharts="Highcharts" :options="humanDatesOptions" />
               </div>
             </section>
+          </div>
+            <div v-else class="panel-loading">
+              {{ highchartsError || 'Loading Highcharts…' }}
+            </div>
           </div>
         </article>
 
@@ -645,15 +838,28 @@
 
 <script>
 import { markRaw } from 'vue';
-import Highcharts from 'highcharts/highstock';
 import {
   exposeHighchartsGlobals,
   initHighchartsModules
 } from '@revivejs/vue-highcharts';
 
-Highcharts.setOptions({
-  colors: ['#0d5c9e', '#30a46c', '#d26a2a', '#b43f3f', '#6d52b5']
-});
+const HIGHCHARTS_COLORS = ['#0d5c9e', '#30a46c', '#d26a2a', '#b43f3f', '#6d52b5'];
+
+let highchartsPromise;
+
+function loadHighchartsInstance() {
+  if (!highchartsPromise) {
+    highchartsPromise = import('highcharts/highstock').then(({ default: highcharts }) => {
+      highcharts.setOptions({
+        colors: HIGHCHARTS_COLORS
+      });
+
+      return highcharts;
+    });
+  }
+
+  return highchartsPromise;
+}
 
 const INSTALL_CODE = 'npm install @revivejs/vue-highcharts highcharts';
 
@@ -686,6 +892,25 @@ const MODULE_CODE = `import Highcharts from 'highcharts/highstock';\nimport {\n 
 const EVENT_CODE = `eventOptions = {\n  chart: {\n    zoomType: 'xy',\n    events: {\n      selection: (event) => {\n        const axis = event.xAxis?.[0];\n        if (axis) {\n          this.pushLog(\`Selection: \${axis.min?.toFixed(2)} to \${axis.max?.toFixed(2)}\`);\n        }\n      }\n    }\n  },\n  xAxis: {\n    events: {\n      afterSetExtremes: (event) => this.pushLog(\`X extremes: \${event.min} to \${event.max}\`)\n    }\n  }\n};`;
 
 const IMPERATIVE_CODE = `this.$refs.dynamicChart.chart.series[0].addPoint(28);\nthis.$refs.dynamicChart.chart.setTitle({ text: 'Updated at 14:12:03' });`;
+
+const PANEL_SECTIONS = [
+  { id: 'core', label: 'Core', needsModules: false },
+  { id: 'callbacks', label: 'Callbacks', needsModules: false },
+  { id: 'imperative', label: 'Imperative API', needsModules: false },
+  { id: 'axes', label: 'Axes & modules', needsModules: true },
+  { id: 'highcharts-6', label: 'Highcharts 6', needsModules: true },
+  { id: 'highcharts-7', label: 'Highcharts 7', needsModules: true },
+  { id: 'highcharts-8', label: 'Highcharts 8', needsModules: true },
+  { id: 'highcharts-9', label: 'Highcharts 9', needsModules: true },
+  { id: 'highcharts-10-11', label: 'Highcharts 10/11', needsModules: true },
+  { id: 'highcharts-12', label: 'Highcharts 12', needsModules: true }
+];
+
+const MODULE_PANEL_IDS = new Set(
+  PANEL_SECTIONS.filter((panel) => panel.needsModules).map((panel) => panel.id)
+);
+
+const DEFAULT_PANEL_ID = null;
 
 function stamp(message) {
   return `${new Date().toLocaleTimeString('en-US', { hour12: false })}  ${message}`;
@@ -1599,7 +1824,11 @@ export default {
 
     return {
       vueLine: '3.5.32',
-      Highcharts: markRaw(Highcharts),
+      panels: PANEL_SECTIONS,
+      activePanel: DEFAULT_PANEL_ID,
+      Highcharts: null,
+      highchartsLoading: false,
+      highchartsError: null,
       installCode: INSTALL_CODE,
       setupCode: SETUP_CODE,
       stockCode: STOCK_CODE,
@@ -1608,6 +1837,7 @@ export default {
       imperativeCode: IMPERATIVE_CODE,
       entries: [],
       modulesReady: false,
+      modulesLoading: false,
       moduleError: null,
       module3dEnabled: true,
       basicOptions: makeBasicOptions(),
@@ -1646,10 +1876,39 @@ export default {
   created() {
     this.pushLog('Demo loaded successfully.');
   },
-  mounted() {
-    this.loadOptionalModules();
-  },
   methods: {
+    panelIsActive(id) {
+      return this.activePanel === id;
+    },
+    panelButtonLabel(id) {
+      return this.panelIsActive(id) ? 'Hide demos' : 'Show demos';
+    },
+    openPanel(id) {
+      if (this.activePanel === id) {
+        return;
+      }
+
+      this.activePanel = id;
+
+      this.ensureHighcharts();
+
+      if (MODULE_PANEL_IDS.has(id)) {
+        this.ensureOptionalModules();
+      }
+
+      const panel = this.panels.find((entry) => entry.id === id);
+      if (panel) {
+        this.pushLog(`Section opened: ${panel.label}.`);
+      }
+    },
+    togglePanel(id) {
+      if (this.activePanel === id) {
+        this.activePanel = null;
+        return;
+      }
+
+      this.openPanel(id);
+    },
     simpleChartCode(name, stock = false) {
       if (stock) {
         return `<highcharts :highcharts="Highcharts" constructor-type="stockChart" :options="${name}" />`;
@@ -1664,9 +1923,47 @@ export default {
       const component = this.$refs[name];
       return component && component.chart ? component.chart : null;
     },
-    async loadOptionalModules() {
+    async ensureHighcharts() {
+      if (this.Highcharts) {
+        return this.Highcharts;
+      }
+
+      if (this.highchartsLoading) {
+        return highchartsPromise;
+      }
+
+      this.highchartsLoading = true;
+      this.highchartsError = null;
+
       try {
-        exposeHighchartsGlobals(this.Highcharts);
+        const highcharts = await loadHighchartsInstance();
+        this.Highcharts = markRaw(highcharts);
+        this.pushLog('Highcharts runtime loaded.');
+        return this.Highcharts;
+      } catch (error) {
+        this.highchartsError = error instanceof Error ? error.message : 'Unknown Highcharts loader error.';
+        this.pushLog('Highcharts runtime failed to load.');
+        this.pushLog(`Highcharts error: ${this.highchartsError}`);
+        return null;
+      } finally {
+        this.highchartsLoading = false;
+      }
+    },
+    async ensureOptionalModules() {
+      if (this.modulesReady || this.modulesLoading) {
+        return;
+      }
+
+      this.modulesLoading = true;
+      this.moduleError = null;
+
+      try {
+        const highcharts = await this.ensureHighcharts();
+        if (!highcharts) {
+          return;
+        }
+
+        exposeHighchartsGlobals(highcharts);
 
         const modules = [];
 
@@ -1674,13 +1971,15 @@ export default {
           modules.push(await loader.load());
         }
 
-        initHighchartsModules(this.Highcharts, ...modules);
+        initHighchartsModules(highcharts, ...modules);
         this.modulesReady = true;
         this.pushLog('Optional modules loaded.');
       } catch (error) {
         this.moduleError = error instanceof Error ? error.message : 'Unknown module loader error.';
         this.pushLog('Optional modules failed to load.');
         this.pushLog(`Module error: ${this.moduleError}`);
+      } finally {
+        this.modulesLoading = false;
       }
     },
     zoomEventX() {

@@ -197,6 +197,32 @@ pre.code {
   margin-top: 18px;
 }
 
+.section-nav {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  border: 1px solid rgba(16, 32, 51, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 30px rgba(27, 66, 110, 0.08);
+}
+
+.section-nav-copy {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.section-nav-copy strong {
+  font-size: 14px;
+  color: #102033;
+}
+
+.section-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .btn {
   display: inline-block;
   padding: 10px 18px;
@@ -241,6 +267,50 @@ pre.code {
   flex-direction: column;
   gap: 6px;
   margin-bottom: 18px;
+}
+
+.panel-header-collapsible {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.panel-kicker {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0d5c9e;
+}
+
+.panel-toggle,
+.section-chip {
+  flex-shrink: 0;
+}
+
+.panel-body {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+.panel-loading {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px dashed rgba(20, 50, 79, 0.2);
+  background: linear-gradient(135deg, rgba(238, 244, 251, 0.7), rgba(255, 249, 240, 0.9));
+  color: #27425f;
+  font-weight: 600;
+  text-align: center;
+}
+
+.panel.collapsed .panel-header {
+  margin-bottom: 0;
 }
 
 .demo-grid {
@@ -309,6 +379,12 @@ button.secondary {
   color: #14324f;
   background: #edf4fa;
   border: 1px solid rgba(20, 50, 79, 0.12);
+}
+
+button.section-chip.is-active {
+  color: #fff;
+  background: #102033;
+  border-color: #102033;
 }
 
 button.ghost {
@@ -453,6 +529,10 @@ button.small {
 @media (max-width: 760px) {
   .demo-grid {
     grid-template-columns: 1fr;
+  }
+
+  .panel-header-collapsible {
+    flex-direction: column;
   }
 
   .demo-card.full {
