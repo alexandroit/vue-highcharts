@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { defineComponent, h, onBeforeUnmount, onMounted, ref, watch, type PropType } from 'vue';
 import type Highcharts from 'highcharts';
 
 export type ConstructorType = 'chart' | 'stockChart' | 'mapChart' | 'ganttChart';
@@ -9,64 +9,23 @@ export type UpdateArgs = [
   animation?: boolean | Partial<Highcharts.AnimationOptionsObject>
 ];
 
-function createChart(this: Vue & {
-  highcharts: typeof Highcharts;
-  options: Highcharts.Options;
-  constructorType: ConstructorType;
-  callback?: (chart: Highcharts.Chart) => void;
-  chart: Highcharts.Chart | null;
-  $refs: { container?: HTMLElement };
-}) {
-  const container = this.$refs.container;
-
-  if (!container) {
-    return;
-  }
-
-  const factory = (this.highcharts as unknown as Record<string, unknown>)[this.constructorType];
-
-  if (typeof factory !== 'function') {
-    throw new Error(
-      `Unknown Highcharts constructor "${this.constructorType}". ` +
-        'Make sure you passed the right Highcharts bundle.'
-    );
-  }
-
-  destroyChart.call(this);
-
-  this.chart = (
-    factory as (
-      container: HTMLElement,
-      options: Highcharts.Options,
-      callback?: (chart: Highcharts.Chart) => void
-    ) => Highcharts.Chart
-  )(container, this.options, (chart) => {
-    this.callback?.(chart);
-  });
-}
-
-function destroyChart(this: Vue & { chart: Highcharts.Chart | null }) {
-  this.chart?.destroy();
-  this.chart = null;
-}
-
-export const Chart = Vue.extend({
+export const Chart = defineComponent({
   name: 'highcharts',
   props: {
     highcharts: {
-      type: Object,
+      type: Object as PropType<typeof Highcharts>,
       required: true
     },
     options: {
-      type: Object,
+      type: Object as PropType<Highcharts.Options>,
       required: true
     },
     constructorType: {
-      type: String,
+      type: String as PropType<ConstructorType>,
       default: 'chart'
     },
     callback: {
-      type: Function,
+      type: Function as PropType<(chart: Highcharts.Chart) => void>,
       default: undefined
     },
     allowChartUpdate: {
@@ -78,60 +37,103 @@ export const Chart = Vue.extend({
       default: false
     },
     updateArgs: {
-      type: Array,
+      type: Array as unknown as PropType<UpdateArgs>,
       default: () => [true, true, true]
     }
   },
-  data() {
-    return {
-      chart: null as Highcharts.Chart | null
+  setup(props, { attrs, expose }) {
+    const container = ref<HTMLElement | null>(null);
+    const chart = ref<Highcharts.Chart | null>(null);
+
+    const destroyChart = () => {
+      chart.value?.destroy();
+      chart.value = null;
     };
-  },
-  mounted() {
-    createChart.call(this as never);
-  },
-  beforeDestroy() {
-    destroyChart.call(this as never);
-  },
-  watch: {
-    highcharts() {
-      createChart.call(this as never);
-    },
-    constructorType() {
-      createChart.call(this as never);
-    },
-    options: {
-      deep: true,
-      handler(this: Vue & {
-        allowChartUpdate: boolean;
-        immutable: boolean;
-        updateArgs: UpdateArgs;
-        chart: Highcharts.Chart | null;
-        options: Highcharts.Options;
-      }) {
-        if (!this.chart) {
-          return;
-        }
 
-        if (this.immutable) {
-          createChart.call(this as never);
-          return;
-        }
+    const createChart = () => {
+      if (!container.value) {
+        return;
+      }
 
-        if (!this.allowChartUpdate) {
-          return;
-        }
+      const factory = (props.highcharts as unknown as Record<string, unknown>)[props.constructorType];
 
-        this.chart.update(
-          this.options,
-          this.updateArgs[0],
-          this.updateArgs[1],
-          this.updateArgs[2]
+      if (typeof factory !== 'function') {
+        throw new Error(
+          `Unknown Highcharts constructor "${props.constructorType}". ` +
+            'Make sure you passed the right Highcharts bundle.'
         );
       }
-    }
-  },
-  render(h) {
-    return h('div', { ref: 'container' });
+
+      destroyChart();
+
+      chart.value = (
+        factory as (
+          container: HTMLElement,
+          options: Highcharts.Options,
+          callback?: (chart: Highcharts.Chart) => void
+        ) => Highcharts.Chart
+      )(container.value, props.options, (createdChart) => {
+        props.callback?.(createdChart);
+      });
+    };
+
+    onMounted(() => {
+      createChart();
+    });
+
+    onBeforeUnmount(() => {
+      destroyChart();
+    });
+
+    watch(
+      () => props.highcharts,
+      () => {
+        createChart();
+      }
+    );
+
+    watch(
+      () => props.constructorType,
+      () => {
+        createChart();
+      }
+    );
+
+    watch(
+      () => props.options,
+      () => {
+        if (!chart.value) {
+          return;
+        }
+
+        if (props.immutable) {
+          createChart();
+          return;
+        }
+
+        if (!props.allowChartUpdate) {
+          return;
+        }
+
+        chart.value.update(
+          props.options,
+          props.updateArgs[0],
+          props.updateArgs[1],
+          props.updateArgs[2]
+        );
+      },
+      { deep: true }
+    );
+
+    expose({
+      get chart() {
+        return chart.value;
+      },
+      get container() {
+        return container.value;
+      }
+    });
+
+    return () => h('div', { ref: container, ...attrs });
   }
 });

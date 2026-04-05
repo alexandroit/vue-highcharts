@@ -1,9 +1,9 @@
-import type { PluginObject } from 'vue';
+import type { App, Plugin } from 'vue';
 import { Chart } from './Chart';
 
-export const HighchartsVue: PluginObject<never> = {
-  install(Vue) {
-    Vue.component('highcharts', Chart);
+export const HighchartsVue: Plugin = {
+  install(app: App) {
+    app.component('highcharts', Chart);
   }
 };
 

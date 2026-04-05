@@ -1,7 +1,7 @@
 {
   "name": "@revivejs/vue-highcharts",
-  "version": "2.0.0",
-  "description": "A thin Vue 2 wrapper for Highcharts with versioned demos.",
+  "version": "3.0.0",
+  "description": "A thin Vue 3 wrapper for Highcharts with versioned demos.",
   "keywords": [
     "vue",
     "vue-library",
@@ -48,18 +48,20 @@
     "build": "tsup",
     "clean": "rm -rf dist docs/vue-2 docs/vue-3",
     "docs:install:vue-2": "cd docs-src/vue-2 && npm install",
+    "docs:install:vue-3": "cd docs-src/vue-3 && npm install",
     "build:docs:vue-2": "cd docs-src/vue-2 && npm run build",
-    "build:docs": "npm run build:docs:vue-2",
+    "build:docs:vue-3": "cd docs-src/vue-3 && npm run build",
+    "build:docs": "npm run build:docs:vue-3",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "highcharts": ">=12.5.0",
-    "vue": ">=2.7.0 <3.0.0"
+    "vue": ">=3.0.0 <4.0.0"
   },
   "devDependencies": {
     "highcharts": "12.5.0",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
-    "vue": "2.7.16"
+    "vue": "3.5.32"
   }
 }

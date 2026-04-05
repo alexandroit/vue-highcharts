@@ -1,26 +1,6 @@
 // src/Chart.ts
-import Vue from "vue";
-function createChart() {
-  const container = this.$refs.container;
-  if (!container) {
-    return;
-  }
-  const factory = this.highcharts[this.constructorType];
-  if (typeof factory !== "function") {
-    throw new Error(
-      `Unknown Highcharts constructor "${this.constructorType}". Make sure you passed the right Highcharts bundle.`
-    );
-  }
-  destroyChart.call(this);
-  this.chart = factory(container, this.options, (chart) => {
-    this.callback?.(chart);
-  });
-}
-function destroyChart() {
-  this.chart?.destroy();
-  this.chart = null;
-}
-var Chart = Vue.extend({
+import { defineComponent, h, onBeforeUnmount, onMounted, ref, watch } from "vue";
+var Chart = defineComponent({
   name: "highcharts",
   props: {
     highcharts: {
@@ -52,55 +32,84 @@ var Chart = Vue.extend({
       default: () => [true, true, true]
     }
   },
-  data() {
-    return {
-      chart: null
+  setup(props, { attrs, expose }) {
+    const container = ref(null);
+    const chart = ref(null);
+    const destroyChart = () => {
+      chart.value?.destroy();
+      chart.value = null;
     };
-  },
-  mounted() {
-    createChart.call(this);
-  },
-  beforeDestroy() {
-    destroyChart.call(this);
-  },
-  watch: {
-    highcharts() {
-      createChart.call(this);
-    },
-    constructorType() {
-      createChart.call(this);
-    },
-    options: {
-      deep: true,
-      handler() {
-        if (!this.chart) {
-          return;
-        }
-        if (this.immutable) {
-          createChart.call(this);
-          return;
-        }
-        if (!this.allowChartUpdate) {
-          return;
-        }
-        this.chart.update(
-          this.options,
-          this.updateArgs[0],
-          this.updateArgs[1],
-          this.updateArgs[2]
+    const createChart = () => {
+      if (!container.value) {
+        return;
+      }
+      const factory = props.highcharts[props.constructorType];
+      if (typeof factory !== "function") {
+        throw new Error(
+          `Unknown Highcharts constructor "${props.constructorType}". Make sure you passed the right Highcharts bundle.`
         );
       }
-    }
-  },
-  render(h) {
-    return h("div", { ref: "container" });
+      destroyChart();
+      chart.value = factory(container.value, props.options, (createdChart) => {
+        props.callback?.(createdChart);
+      });
+    };
+    onMounted(() => {
+      createChart();
+    });
+    onBeforeUnmount(() => {
+      destroyChart();
+    });
+    watch(
+      () => props.highcharts,
+      () => {
+        createChart();
+      }
+    );
+    watch(
+      () => props.constructorType,
+      () => {
+        createChart();
+      }
+    );
+    watch(
+      () => props.options,
+      () => {
+        if (!chart.value) {
+          return;
+        }
+        if (props.immutable) {
+          createChart();
+          return;
+        }
+        if (!props.allowChartUpdate) {
+          return;
+        }
+        chart.value.update(
+          props.options,
+          props.updateArgs[0],
+          props.updateArgs[1],
+          props.updateArgs[2]
+        );
+      },
+      { deep: true }
+    );
+    expose({
+      get chart() {
+        return chart.value;
+      },
+      get container() {
+        return container.value;
+      }
+    });
+    return () => h("div", { ref: container, ...attrs });
   }
 });
 
 // src/plugin.ts
 var HighchartsVue = {
-  install(Vue2) {
-    Vue2.component("highcharts", Chart);
+  install(app) {
+    app.component("highcharts", Chart);
   }
 };
 var plugin_default = HighchartsVue;
