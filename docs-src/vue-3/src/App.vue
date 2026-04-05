@@ -101,7 +101,7 @@
             </button>
           </div>
           <div v-if="panelIsActive('core')" id="panel-core" class="panel-body">
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card">
               <h3>Basic chart</h3>
               <p>Pass a standard Highcharts options object to the wrapper.</p>
@@ -127,9 +127,6 @@
               </div>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -154,7 +151,7 @@
             </button>
           </div>
           <div v-if="panelIsActive('callbacks')" id="panel-callbacks" class="panel-body">
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card full">
               <h3>Chart, series and point events</h3>
               <p>Drag to zoom, hover the series, click a point, and watch the Event Log update.</p>
@@ -178,9 +175,6 @@
               </div>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -205,7 +199,7 @@
             </button>
           </div>
           <div v-if="panelIsActive('imperative')" id="panel-imperative" class="panel-body">
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card full">
               <h3>Imperative mutations via the Highcharts API</h3>
               <p>Use the chart ref to add points, replace series data, or rename the chart.</p>
@@ -226,9 +220,6 @@
               </div>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -253,7 +244,7 @@
             </button>
           </div>
           <div v-if="panelIsActive('axes')" id="panel-axes" class="panel-body">
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card">
               <h3>zAxis in 3D scatter</h3>
               <p>Clamp and reset the zAxis through the native chart instance.</p>
@@ -316,9 +307,6 @@
               <p v-if="moduleError" class="module-error">{{ moduleError }}</p>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -343,7 +331,7 @@
             </button>
           </div>
           <div v-if="panelIsActive('highcharts-6')" id="panel-highcharts-6" class="panel-body">
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card">
               <h3>Bullet chart</h3>
               <p>Compare an actual value to a target with qualitative bands.</p>
@@ -376,9 +364,6 @@
               </div>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -403,7 +388,7 @@
             </button>
           </div>
           <div v-if="panelIsActive('highcharts-7')" id="panel-highcharts-7" class="panel-body">
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card">
               <h3>Timeline chart</h3>
               <p>Chronological milestones on a single track.</p>
@@ -444,9 +429,6 @@
               </div>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -471,7 +453,7 @@
             </button>
           </div>
           <div v-if="panelIsActive('highcharts-8')" id="panel-highcharts-8" class="panel-body">
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card">
               <h3>Radial bar chart</h3>
               <p>A circular bar layout for KPI comparisons.</p>
@@ -500,9 +482,6 @@
               </div>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -527,7 +506,7 @@
             </button>
           </div>
           <div v-if="panelIsActive('highcharts-9')" id="panel-highcharts-9" class="panel-body">
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card">
               <h3>3D area chart</h3>
               <p>Area series inside a 3D chart.</p>
@@ -576,9 +555,6 @@
               </div>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -607,7 +583,7 @@
             id="panel-highcharts-10-11"
             class="panel-body"
           >
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card">
               <h3>Drilldown breadcrumbs</h3>
               <p>Keep breadcrumb navigation visible while drilling into data.</p>
@@ -666,9 +642,6 @@
               </div>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -694,7 +667,7 @@
             </button>
           </div>
           <div v-if="panelIsActive('highcharts-12')" id="panel-highcharts-12" class="panel-body">
-            <div v-if="Highcharts" class="demo-grid">
+            <div class="demo-grid">
             <section class="demo-card">
               <h3>Point and figure</h3>
               <p>Trend-focused stock columns without time-based bars.</p>
@@ -745,9 +718,6 @@
               </div>
             </section>
           </div>
-            <div v-else class="panel-loading">
-              {{ highchartsError || 'Loading Highcharts…' }}
-            </div>
           </div>
         </article>
 
@@ -838,6 +808,7 @@
 
 <script>
 import { markRaw } from 'vue';
+import Highcharts from 'highcharts/highstock';
 import {
   exposeHighchartsGlobals,
   initHighchartsModules
@@ -845,21 +816,9 @@ import {
 
 const HIGHCHARTS_COLORS = ['#0d5c9e', '#30a46c', '#d26a2a', '#b43f3f', '#6d52b5'];
 
-let highchartsPromise;
-
-function loadHighchartsInstance() {
-  if (!highchartsPromise) {
-    highchartsPromise = import('highcharts/highstock').then(({ default: highcharts }) => {
-      highcharts.setOptions({
-        colors: HIGHCHARTS_COLORS
-      });
-
-      return highcharts;
-    });
-  }
-
-  return highchartsPromise;
-}
+Highcharts.setOptions({
+  colors: HIGHCHARTS_COLORS
+});
 
 const INSTALL_CODE = 'npm install @revivejs/vue-highcharts highcharts';
 
@@ -1826,9 +1785,7 @@ export default {
       vueLine: '3.5.32',
       panels: PANEL_SECTIONS,
       activePanel: DEFAULT_PANEL_ID,
-      Highcharts: null,
-      highchartsLoading: false,
-      highchartsError: null,
+      Highcharts: markRaw(Highcharts),
       installCode: INSTALL_CODE,
       setupCode: SETUP_CODE,
       stockCode: STOCK_CODE,
@@ -1890,8 +1847,6 @@ export default {
 
       this.activePanel = id;
 
-      this.ensureHighcharts();
-
       if (MODULE_PANEL_IDS.has(id)) {
         this.ensureOptionalModules();
       }
@@ -1923,32 +1878,6 @@ export default {
       const component = this.$refs[name];
       return component && component.chart ? component.chart : null;
     },
-    async ensureHighcharts() {
-      if (this.Highcharts) {
-        return this.Highcharts;
-      }
-
-      if (this.highchartsLoading) {
-        return highchartsPromise;
-      }
-
-      this.highchartsLoading = true;
-      this.highchartsError = null;
-
-      try {
-        const highcharts = await loadHighchartsInstance();
-        this.Highcharts = markRaw(highcharts);
-        this.pushLog('Highcharts runtime loaded.');
-        return this.Highcharts;
-      } catch (error) {
-        this.highchartsError = error instanceof Error ? error.message : 'Unknown Highcharts loader error.';
-        this.pushLog('Highcharts runtime failed to load.');
-        this.pushLog(`Highcharts error: ${this.highchartsError}`);
-        return null;
-      } finally {
-        this.highchartsLoading = false;
-      }
-    },
     async ensureOptionalModules() {
       if (this.modulesReady || this.modulesLoading) {
         return;
@@ -1958,12 +1887,7 @@ export default {
       this.moduleError = null;
 
       try {
-        const highcharts = await this.ensureHighcharts();
-        if (!highcharts) {
-          return;
-        }
-
-        exposeHighchartsGlobals(highcharts);
+        exposeHighchartsGlobals(this.Highcharts);
 
         const modules = [];
 
@@ -1971,7 +1895,7 @@ export default {
           modules.push(await loader.load());
         }
 
-        initHighchartsModules(highcharts, ...modules);
+        initHighchartsModules(this.Highcharts, ...modules);
         this.modulesReady = true;
         this.pushLog('Optional modules loaded.');
       } catch (error) {
