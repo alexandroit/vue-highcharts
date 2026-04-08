@@ -3,7 +3,7 @@
     <section class="hero">
       <div class="hero-card hero-main">
         <span class="badge">Vue {{ vueLine }} · Highcharts 12</span>
-        <h1>@revivejs/vue-highcharts</h1>
+        <h1>@stackline/vue-highcharts</h1>
         <p>
           A thin, community-style Vue wrapper for Highcharts, StockChart, 3D charts, heatmaps,
           drilldowns, renko charts and point-and-figure series. Register one plugin, pass the
@@ -799,7 +799,7 @@
 
     <footer class="footer">
       <p>
-        <strong>@revivejs/vue-highcharts</strong> keeps the wrapper intentionally thin so Vue stays in charge
+        <strong>@stackline/vue-highcharts</strong> keeps the wrapper intentionally thin so Vue stays in charge
         of state while Highcharts stays in charge of rendering, interactivity, and advanced chart types.
       </p>
     </footer>
@@ -812,7 +812,7 @@ import Highcharts from 'highcharts/highstock';
 import {
   exposeHighchartsGlobals,
   initHighchartsModules
-} from '@revivejs/vue-highcharts';
+} from '@stackline/vue-highcharts';
 
 const HIGHCHARTS_COLORS = ['#0d5c9e', '#30a46c', '#d26a2a', '#b43f3f', '#6d52b5'];
 
@@ -820,9 +820,9 @@ Highcharts.setOptions({
   colors: HIGHCHARTS_COLORS
 });
 
-const INSTALL_CODE = 'npm install @revivejs/vue-highcharts highcharts';
+const INSTALL_CODE = 'npm install @stackline/vue-highcharts@3 highcharts';
 
-const SETUP_CODE = `import { createApp } from 'vue';\nimport HighchartsVue from '@revivejs/vue-highcharts';\n\ncreateApp(App)\n  .use(HighchartsVue)\n  .mount('#app');`;
+const SETUP_CODE = `import { createApp } from 'vue';\nimport HighchartsVue from '@stackline/vue-highcharts';\n\ncreateApp(App)\n  .use(HighchartsVue)\n  .mount('#app');`;
 
 const STOCK_CODE = `<highcharts\n  :highcharts="Highcharts"\n  constructor-type="stockChart"\n  :options="stockOptions"\n/>`;
 
@@ -846,7 +846,7 @@ const OPTIONAL_MODULE_LOADERS = [
   { name: 'highcharts/modules/renko.js', load: () => import('highcharts/modules/renko.js') }
 ];
 
-const MODULE_CODE = `import Highcharts from 'highcharts/highstock';\nimport {\n  exposeHighchartsGlobals,\n  initHighchartsModules\n} from '@revivejs/vue-highcharts';\n\nconst moduleLoaders = [\n  () => import('highcharts/highcharts-3d.js'),\n  () => import('highcharts/modules/heatmap.js'),\n  () => import('highcharts/modules/bullet.js'),\n  () => import('highcharts/modules/xrange.js'),\n  () => import('highcharts/modules/sankey.js'),\n  () => import('highcharts/modules/organization.js'),\n  () => import('highcharts/modules/dependency-wheel.js'),\n  () => import('highcharts/modules/venn.js'),\n  () => import('highcharts/modules/timeline.js'),\n  () => import('highcharts/modules/marker-clusters.js'),\n  () => import('highcharts/modules/annotations.js'),\n  () => import('highcharts/modules/drilldown.js'),\n  () => import('highcharts/modules/arc-diagram.js'),\n  () => import('highcharts/modules/treemap.js'),\n  () => import('highcharts/modules/treegraph.js'),\n  () => import('highcharts/modules/pointandfigure.js'),\n  () => import('highcharts/modules/renko.js')\n];\n\nexposeHighchartsGlobals(Highcharts);\n\nconst modules = [];\nfor (const load of moduleLoaders) {\n  modules.push(await load());\n}\n\ninitHighchartsModules(Highcharts, ...modules);`;
+const MODULE_CODE = `import Highcharts from 'highcharts/highstock';\nimport {\n  exposeHighchartsGlobals,\n  initHighchartsModules\n} from '@stackline/vue-highcharts';\n\nconst moduleLoaders = [\n  () => import('highcharts/highcharts-3d.js'),\n  () => import('highcharts/modules/heatmap.js'),\n  () => import('highcharts/modules/bullet.js'),\n  () => import('highcharts/modules/xrange.js'),\n  () => import('highcharts/modules/sankey.js'),\n  () => import('highcharts/modules/organization.js'),\n  () => import('highcharts/modules/dependency-wheel.js'),\n  () => import('highcharts/modules/venn.js'),\n  () => import('highcharts/modules/timeline.js'),\n  () => import('highcharts/modules/marker-clusters.js'),\n  () => import('highcharts/modules/annotations.js'),\n  () => import('highcharts/modules/drilldown.js'),\n  () => import('highcharts/modules/arc-diagram.js'),\n  () => import('highcharts/modules/treemap.js'),\n  () => import('highcharts/modules/treegraph.js'),\n  () => import('highcharts/modules/pointandfigure.js'),\n  () => import('highcharts/modules/renko.js')\n];\n\nexposeHighchartsGlobals(Highcharts);\n\nconst modules = [];\nfor (const load of moduleLoaders) {\n  modules.push(await load());\n}\n\ninitHighchartsModules(Highcharts, ...modules);`;
 
 const EVENT_CODE = `eventOptions = {\n  chart: {\n    zoomType: 'xy',\n    events: {\n      selection: (event) => {\n        const axis = event.xAxis?.[0];\n        if (axis) {\n          this.pushLog(\`Selection: \${axis.min?.toFixed(2)} to \${axis.max?.toFixed(2)}\`);\n        }\n      }\n    }\n  },\n  xAxis: {\n    events: {\n      afterSetExtremes: (event) => this.pushLog(\`X extremes: \${event.min} to \${event.max}\`)\n    }\n  }\n};`;
 
@@ -1782,7 +1782,7 @@ export default {
     const log = (message) => this.pushLog(message);
 
     return {
-      vueLine: '3.5.32',
+      vueLine: '3.0.0 -> 3.5.32',
       panels: PANEL_SECTIONS,
       activePanel: DEFAULT_PANEL_ID,
       Highcharts: markRaw(Highcharts),

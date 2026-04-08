@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import HighchartsVue from '@revivejs/vue-highcharts';
+import HighchartsVue from '@stackline/vue-highcharts';
 import './app.css';
 
 Vue.use(HighchartsVue);

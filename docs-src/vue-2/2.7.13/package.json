@@ -1,0 +1,14 @@
+{
+  "name": "@stackline/vue-highcharts-docs-vue2-2-7-13",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "validate": "node ./stackline-validate.mjs"
+  },
+  "dependencies": {
+    "highcharts": "12.5.0",
+    "vue": "2.7.13",
+    "@stackline/vue-highcharts": "file:../../.."
+  },
+  "devDependencies": {}
+}

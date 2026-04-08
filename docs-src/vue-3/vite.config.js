@@ -7,7 +7,7 @@ export default defineConfig({
   base: './',
   resolve: {
     alias: {
-      '@revivejs/vue-highcharts': resolve(__dirname, '../../src/index.ts'),
+      '@stackline/vue-highcharts': resolve(__dirname, '../../src/index.ts'),
       vue: resolve(__dirname, 'node_modules/vue/dist/vue.esm-bundler.js')
     },
     dedupe: ['vue']

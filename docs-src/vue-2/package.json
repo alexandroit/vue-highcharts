@@ -1,5 +1,5 @@
 {
-  "name": "@revivejs/vue-highcharts-docs-vue2",
+  "name": "@stackline/vue-highcharts-docs-vue2",
   "version": "1.0.0",
   "private": true,
   "scripts": {
