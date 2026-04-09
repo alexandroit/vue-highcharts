@@ -1,0 +1,19 @@
+{
+  "packageName": "@stackline/vue-highcharts",
+  "projectRoot": "vue-highcharts/vue-highcharts",
+  "family": "vue-2",
+  "framework": "vue",
+  "exactVersion": "2.7.14",
+  "releaseRoot": "vue-highcharts/vue-highcharts/docs-src/vue-2/2.7.14",
+  "build": null,
+  "install": {
+    "success": true,
+    "command": "npm install --ignore-scripts"
+  },
+  "validate": {
+    "success": true,
+    "command": "npm run validate"
+  },
+  "success": true,
+  "generatedAt": "2026-04-09T01:56:29.091Z"
+}
