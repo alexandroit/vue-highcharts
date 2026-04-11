@@ -8,7 +8,7 @@
 [![Vue 3](https://img.shields.io/badge/Vue-3-brightgreen?style=flat-square&logo=vuedotjs)](https://vuejs.org)
 [![Highcharts](https://img.shields.io/badge/Highcharts-12.5-navy?style=flat-square)](https://www.highcharts.com)
 
-**[Documentation & Live Demos](https://alexandroit.github.io/vue-highcharts/)** | **[npm](https://www.npmjs.com/package/@stackline/vue-highcharts)** | **[Issues](https://github.com/alexandroit/vue-highcharts/issues)** | **[Repository](https://github.com/alexandroit/vue-highcharts)**
+**[Documentation & Live Demos](https://alexandro.net/docs/vue/vue-highcharts/)** | **[npm](https://www.npmjs.com/package/@stackline/vue-highcharts)** | **[Issues](https://github.com/alexandroit/vue-highcharts/issues)** | **[Repository](https://github.com/alexandroit/vue-highcharts)**
 
 **Latest version:** `3.0.0`
 
@@ -29,8 +29,8 @@ Each package family only installs on its matching Vue family. Framework major an
 
 | Package family | Framework family | Peer range | Tested release window | Demo link |
 | :---: | :---: | :---: | :---: | :--- |
-| **3.x** | **Vue 3 only** | **`>=3.0.0 <4.0.0`** | **3.0.0 -> 3.5.32** | [Vue 3 family docs](https://alexandroit.github.io/vue-highcharts/vue-3/) |
-| **2.x** | **Vue 2 only** | **`>=2.0.0 <3.0.0`** | **2.0.0 -> 2.7.16** | [Vue 2 family docs](https://alexandroit.github.io/vue-highcharts/vue-2/) |
+| **3.x** | **Vue 3 only** | **`>=3.0.0 <4.0.0`** | **3.0.0 -> 3.5.32** | [Vue 3 family docs](https://alexandro.net/docs/vue/vue-highcharts/vue-3/) |
+| **2.x** | **Vue 2 only** | **`>=2.0.0 <3.0.0`** | **2.0.0 -> 2.7.16** | [Vue 2 family docs](https://alexandro.net/docs/vue/vue-highcharts/vue-2/) |
 
 
 ## Installation
