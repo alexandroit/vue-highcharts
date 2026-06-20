@@ -18,7 +18,7 @@ const releaseLines = {
   },
   3: {
     version: '3.0.0',
-    vue: '3.5.32',
+    vue: '3.5.38',
     peerRange: '>=3.0.0 <4.0.0'
   }
 };

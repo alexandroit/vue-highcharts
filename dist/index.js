@@ -143,3 +143,4 @@ export {
   exposeHighchartsGlobals,
   initHighchartsModules
 };
+//# sourceMappingURL=index.js.map

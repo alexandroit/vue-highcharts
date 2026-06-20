@@ -3,7 +3,7 @@
 - Framework: vue
 - Major family: 3
 - Exact releases: 152
-- Range: 3.0.0 -> 3.5.32
+- Range: 3.0.0 -> 3.5.38
 - Validation rule: install the exact framework release with `npm install` inside each release folder.
 
 ## Exact folders
@@ -160,4 +160,3 @@
 - `3.5.30/`
 - `3.5.31/`
 - `3.5.32/`
-

@@ -1782,7 +1782,7 @@ export default {
     const log = (message) => this.pushLog(message);
 
     return {
-      vueLine: '3.0.0 -> 3.5.32',
+      vueLine: '3.0.0 -> 3.5.38',
       panels: PANEL_SECTIONS,
       activePanel: DEFAULT_PANEL_ID,
       Highcharts: markRaw(Highcharts),
