@@ -125,3 +125,12 @@ this.$refs.salesChart.chart.series[0].addPoint(42);
 - Initial Vue wrapper line
 - Added the first versioned docs app for Vue 2
 - Established the versioned docs structure used by later releases
+
+## Security
+
+Report vulnerabilities privately by following [SECURITY.md](SECURITY.md). Do
+not disclose exploit details in a public issue.
+
+## License
+
+Licensed under the MIT License. See [LICENSE](LICENSE).

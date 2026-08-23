@@ -30,6 +30,8 @@
   "type": "module",
   "files": [
     "dist",
+    "CHANGELOG.md",
+    "SECURITY.md",
     "README.md",
     "LICENSE"
   ],
@@ -70,5 +72,10 @@
     "tsup": "8.5.1",
     "typescript": "5.9.3",
     "vue": "3.5.38"
+  },
+  "overrides": {
+    "tsup": {
+      "esbuild": "^0.28.2"
+    }
   }
 }
