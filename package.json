@@ -68,7 +68,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "highcharts": "12.6.0",
+    "highcharts": "13.0.1",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
     "vue": "3.5.38"
