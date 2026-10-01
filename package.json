@@ -70,10 +70,10 @@
     "access": "public"
   },
   "devDependencies": {
-    "highcharts": "12.6.0",
+    "highcharts": "12.6.2",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
-    "vue": "3.5.41"
+    "vue": "3.5.43"
   },
   "overrides": {
     "tsup": {
