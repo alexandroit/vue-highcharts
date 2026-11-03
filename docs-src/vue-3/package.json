@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "highcharts": "12.6.0",
+    "highcharts": "12.6.2",
     "vue": "3.5.41"
   },
   "devDependencies": {
